@@ -1,0 +1,69 @@
+.adminlogo {
+    width: 250px;
+}
+.adminlogo a.navbar-brand{
+    padding: 0px 25px;
+}
+.thumb_image {
+  box-shadow: 2px 1px 2px 1px;
+  float: left;
+  margin: 5px;
+  padding: 3px;
+}
+.album.thumb_image img{
+	width: 150px;
+	height: 133px;
+}
+.thumb_image img{
+	max-width: 150px;
+	max-height: 133px;
+}
+.read .text{color: #C1C1C1;}
+.unread .text{color: #333333; font-weight: bold;}
+.popup-count{}
+.badge-notify{
+    background: red none repeat scroll 0 0;
+    left: 20px;
+    position: absolute;
+    top: 5px;
+    z-index: 10;
+}
+.img-controller-icons{
+    float: left;
+    opacity: 0.8;
+    position: absolute;
+    z-index: 2;
+}
+.img-controller-icons i{
+    background: #fff none repeat scroll 0 0;
+    margin: 0px;
+    padding: 2px;
+    cursor: pointer;
+}
+.toremove{
+    opacity: 0.3;
+}
+.toblur {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+.addnew-panel {
+  background-color: #e1e1e1;
+  border: 1px dashed #333;
+  margin: 5px;
+}
+.row-odd {
+    background-color: #f9f9f9;
+}
+.row-even {
+    
+}
+.row-tb-pading-10 {
+    padding: 10px 0px;
+}
+.panel .panel-heading .btn {
+    margin-top: -7px;
+}

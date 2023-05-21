@@ -1,0 +1,81 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}
+
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper > .container {
+  padding-right: 0;
+  padding-left: 0;
+}
+.navbar-wrapper .navbar {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.navbar-wrapper .navbar .container {
+  width: auto;
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+
+.carousel-inner.destinations .item {
+    width: 100%;
+    margin:0;
+}
+
+.carousel-inner.destinations .item > img {
+  position: absolute;
+      top: -120px;
+      left: 0;
+      width: 100%;
+}
+
+
+p.destCarousel_title {
+    position: absolute;
+    z-index: 100;
+    color: #fff;
+    text-shadow: 3px 3px 3px rgb(0, 0, 0);
+}
+
+h1.destCarousel_h1 {
+    position: absolute;
+     z-index: 1;
+    top: 220px;
+    font-size:4.7vw;
+    color: #fff;
+    text-shadow: 3px 3px 3px rgb(0, 0, 0);
+}
+
+
+a.left.carousel-control.dest,a.right.carousel-control.dest {
+    display:none;
+}
