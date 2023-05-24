@@ -1,8 +1,13 @@
-<!---booking search engine--->
+
+{{-- booking search widget --}}
 <form action="{{ url('/flightresults/') }}" method="post" name="frm_findflight">
+
     {{ csrf_field() }}
     {{ method_field('POST') }}
+    
     <div class="col-md-12 panel panel-body bkg_eng">
+        
+        {{-- return or one way radio buttons --}}
         <div class="row line-grey">
             <div class="form-check form-check-inline pull-left">
                 <label class="form-check-label">
@@ -14,70 +19,81 @@
                     <input class="form-check-input rbtsearchtype" type="radio" name="rbtn_searchtype" id="inlineRadio2" @if(old('rbtn_searchtype') == "oneway") checked="checked" @endif value="oneway"> One way &nbsp;
                 </label>
             </div>
-            <!--<div class="form-check form-check-inline  pull-left">
-                <label class="form-check-label">
-                    <input class="form-check-input rbtsearchtype" type="radio" name="rbtn_searchtype" id="inlineRadio3" @if(old('rbtn_searchtype') == "multi") checked="checked" @endif value="multi"> Multicity
-                </label>
-            </div>-->
         </div>
+        {{-- end of return or one way radio buttons --}}
+
+        {{-- flying from flying to --}}
         <div class="row">
             <div class="col-sm-6">
-              <label>Flying from
-              <div class="input-group">
-                <span class="input-group-addon transparent"><span class="glyphicon glyphicon-map-marker"></span></span>
-                  <input type="text" name="fromtag" class="form-control fly_from ajaxcity" value="{{ old('flying_from') }}" id="fromtag" autocomplete="off">
-                  <div class="fromlist"><div class="loaderimg text-center"><img src="assets/img/ajax-loader-small.gif" title="loading..."/></div><ul></ul></div>
-                  <input type="hidden" name="flying_from" value="{{ old('flying_from') }}" id="flying_from"/>
-                </div>
-            </label>
-          </div>
-          @if ($errors->has('flying_from'))
-          <span class="help-block">
-              <strong>{{ $errors->first('flying_from') }}</strong>
-          </span>
-          @endif
+                <label>Flying from
+                    <div class="input-group">
+                        <span class="input-group-addon transparent"><span class="glyphicon glyphicon-map-marker"></span></span>
+                        <input type="text" name="fromtag" class="form-control fly_from ajaxcity" value="{{ old('flying_from') }}" id="fromtag" autocomplete="off" required>
+                        <div class="fromlist">
+                            <div class="loaderimg text-center">
+                                <img src="assets/img/ajax-loader-small.gif" title="loading..."/>
+                            </div>
+                            <ul></ul>
+                        </div>
+                        <input type="hidden" name="flying_from" value="{{ old('flying_from') }}" id="flying_from"/>
+                    </div>
+                </label>
+            </div>
+
+            @if ($errors->has('flying_from'))
+                <span class="help-block"><strong>{{ $errors->first('flying_from') }}</strong></span>
+            @endif
+
             <div class="col-sm-6">
-              <label>Flying to
-              <div class="input-group">
-                <span class="input-group-addon transparent"><span class="glyphicon glyphicon-map-marker"></span></span>
-                  <input class="form-control fly_to ajaxcity2" type="text" name="totag" id="totag" autocomplete="off" value="{{ old('flying_to') }}" required>
-                  <div class="tolist"><div class="loaderimg text-center"><img src="assets/img/ajax-loader-small.gif" title="loading..."/></div><ul></ul></div>
-                  <input type="hidden" name="flying_to" value="{{ old('flying_to') }}" id="flying_to"/>
-                </div>
-                @if ($errors->has('flying_to'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('flying_to') }}</strong>
-                </span>
-                @endif
+                <label>Flying to
+                    <div class="input-group">
+                        <span class="input-group-addon transparent"><span class="glyphicon glyphicon-map-marker"></span></span>
+                        <input class="form-control fly_to ajaxcity2" type="text" name="totag" id="totag" autocomplete="off" value="{{ old('flying_to') }}" required>
+                        <div class="tolist">
+                            <div class="loaderimg text-center">
+                                <img src="assets/img/ajax-loader-small.gif" title="loading..."/>
+                            </div>
+                            <ul></ul>
+                        </div>
+                        <input type="hidden" name="flying_to" value="{{ old('flying_to') }}" id="flying_to"/>
+                    </div>
+                    
+                    @if ($errors->has('flying_to'))
+                        <span class="help-block"><strong>{{ $errors->first('flying_to') }}</strong></span>
+                    @endif
+                </label>
             </div>
         </div>
+        {{-- end of flying from flying to --}}
+
+        {{-- depature return dates and class --}}
         <div class="row">
             <div class="col-sm-4">
-              <label>Departure date
-              <div class="input-group">
-                <span class="input-group-addon transparent"><span class="glyphicon glyphicon-calendar"></span></span>
-                  <input class="form-control left-border-none" placeholder="yyyy-mm-dd" value="{{ old('departure_date') }}" type="text" name="departure_date" id="depart_date" autocomplete="off">
-                </div>
-              </label>
+                <label>Departure date
+                    <div class="input-group">
+                        <span class="input-group-addon transparent"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input class="form-control left-border-none" placeholder="yyyy-mm-dd" value="{{ old('departure_date') }}" type="text" name="departure_date" id="depart_date" autocomplete="off">
+                    </div>
+                </label>
+                
                 @if ($errors->has('departure_date'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('departure_date') }}</strong>
-                </span>
+                    <span class="help-block"><strong>{{ $errors->first('departure_date') }}</strong></span>
                 @endif
             </div>
+
             <div class="col-sm-4">
                 <label>Return date
-                  <div class="input-group">
-                    <span class="input-group-addon transparent"><span class="glyphicon glyphicon-calendar"></span></span>
-                      <input class="form-control left-border-none" placeholder="yyyy-mm-dd" value="{{ old('return_date') }}" type="text" name="return_date" id="return_date" autocomplete="off">
+                    <div class="input-group">
+                        <span class="input-group-addon transparent"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input class="form-control left-border-none" placeholder="yyyy-mm-dd" value="{{ old('return_date') }}" type="text" name="return_date" id="return_date" autocomplete="off">
                     </div>
-              </label>
+                </label>
+                
                 @if ($errors->has('return_date'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('return_date') }}</strong>
-                </span>
+                    <span class="help-block"><strong>{{ $errors->first('return_date') }}</strong></span>
                 @endif
             </div>
+
             <div class="col-sm-4">
                 <label>Class
                     <div class="form-group">
@@ -90,61 +106,58 @@
                 </label>
             </div>
         </div>
+        {{-- end of depature return dates and class --}}
+
         <div class="row">
+            {{-- adult child infant counter --}}
             <div class="col-sm-6 pull-left">
                 <ul class="no_pax_select">
                     <li>
                         <div class="input-group">
                             <label>Adult</label>
                             <span id="qnty"> 1</span><input type="hidden" class="qnty_adult" name="adults" id="hadults" value="1"/>
+                            
                             @if ($errors->has('adults'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('adults') }}</strong>
-                            </span>
+                                <span class="help-block"><strong>{{ $errors->first('adults') }}</strong></span>
                             @endif
 
-                            <span class="input-group-btn">
-                                <button class="btn btn-default bkgbtn" type="button" id="btn-minus"><span class="glyphicon glyphicon-minus"></span></button>
-                            </span>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default bkgbtn" type="button" id="btn-plus"><span class="glyphicon glyphicon-plus"></span></button>
-                            </span>
-
+                            <span class="input-group-btn"><button class="btn btn-default bkgbtn" type="button" id="btn-minus"><span class="glyphicon glyphicon-minus"></span></button></span>
+                            <span class="input-group-btn"><button class="btn btn-default bkgbtn" type="button" id="btn-plus"><span class="glyphicon glyphicon-plus"></span></button></span>
                         </div>
-                    </li><p class="mobilenone">( > 12 years)</p>
+                    </li>
+                    
+                    <p class="mobilenone">( > 12 years)</p>
+                    
                     <li>
                         <div class="input-group">
                             <label>Child</label>
                             <span id="qnty" class="hchildqty"> 0</span>
                             <input type="hidden" name="child" id="hchild" value="0"/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default bkgbtn child-minus" type="button" id="btn-plus"><span class="glyphicon glyphicon-minus"></span></button>
-                            </span>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default bkgbtn child-plus" type="button" id="btn-minus"><span class="glyphicon glyphicon-plus"></span></button>
-                            </span>
-
+                            
+                            <span class="input-group-btn"><button class="btn btn-default bkgbtn child-minus" type="button" id="btn-plus"><span class="glyphicon glyphicon-minus"></span></button></span>
+                            <span class="input-group-btn"><button class="btn btn-default bkgbtn child-plus" type="button" id="btn-minus"><span class="glyphicon glyphicon-plus"></span></button></span>
                         </div>
                     </li>
+
                     <p class="mobilenone"> ( 2 to 11 years)</p>
+
                     <li>
                         <div class="input-group">
                             <label>Infant</label>
-                            <input type="hidden" name="infant" id="hinfant" value="0"/>
                             <span id="qnty" class="infantqty"> 0</span>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default bkgbtn infant-minus" type="button" id="btn-plus"><span class="glyphicon glyphicon-minus"></span></button>
-                            </span>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default bkgbtn infant-plus" type="button" id="btn-minus"><span class="glyphicon glyphicon-plus"></span></button>
-                            </span>
-
+                            <input type="hidden" name="infant" id="hinfant" value="0"/>
+                            
+                            <span class="input-group-btn"><button class="btn btn-default bkgbtn infant-minus" type="button" id="btn-plus"><span class="glyphicon glyphicon-minus"></span></button></span>
+                            <span class="input-group-btn"><button class="btn btn-default bkgbtn infant-plus" type="button" id="btn-minus"><span class="glyphicon glyphicon-plus"></span></button></span>
                         </div>
                     </li>
+
                     <p class="mobilenone"> ( below 2 years)</p>
                 </ul>
-
             </div>
+            {{-- end of adult child infant counter --}}
+
+            {{-- airline and search flight --}}
             <div class="col-md-5 pull-left">
                 <label>Airline
                     <div class="form-group">
@@ -170,9 +183,10 @@
                     </div>
                 </div>
                 <button type="submit" role="button" class="btn-search pull-left">Search Flights</button>
-
             </div>
+            {{-- end of airline and search flight --}}
         </div>
+
     </div>
 </form>
 
@@ -200,7 +214,7 @@ $(document).ready(function(){
         $('#fromtag').val($(this).data('val'));
         $('.fromlist').fadeOut();
         //alert($varName);
-       });
+    });
 
     $(".tolist").on("click", "li", function(){
         $('#flying_to').val($(this).data('id'));
@@ -321,20 +335,20 @@ $(document).ready(function(){
 
    */
 
- $("#depart_date").datepicker({
-       useCurrent: false,
-       format: 'yyyy-mm-dd',
-       firstDay: 1,
-       orientation: 'top',
-       autoclose: true,
-   });
+    $("#depart_date").datepicker({
+        useCurrent: false,
+        format: 'yyyy-mm-dd',
+        firstDay: 1,
+        orientation: 'top',
+        autoclose: true,
+    });
 
-   $("#return_date").datepicker({
-     format: 'yyyy-mm-dd',
-     firstDay: 1,
-     orientation: 'top',
-     autoclose: true,
-   });
+    $("#return_date").datepicker({
+        format: 'yyyy-mm-dd',
+        firstDay: 1,
+        orientation: 'top',
+        autoclose: true,
+    });
 
 
 

@@ -643,19 +643,20 @@ class PagesController extends BaseController
             $request->flash();
             $response = $params = $summary = [];
             $searchtype = "";
+            
             if ($request->isMethod('POST')) {
-                $rules = [  'flying_from' => 'required|min:3|max:3',
-                            'flying_to' => 'required|min:3|max:3',
-                            'departure_date' => 'required|after:' . date('Y-m-d') . '|date_format:Y-m-d',
-                            'adults' => 'required|min:1|max:10'
-                    ];
+                $rules = 
+                [  'flying_from' => 'required|min:3|max:3',
+                    'flying_to' => 'required|min:3|max:3',
+                    'departure_date' => 'required|after:' . date('Y-m-d') . '|date_format:Y-m-d',
+                    'return_date' => 'required|after:' . date('Y-m-d') . '|date_format:Y-m-d',
+                    'adults' => 'required|min:1|max:10'
+                ];
 
                 $validator = Validator::make($request->all(), $rules);
 
                 if ($validator->fails()) {
-                    return redirect('/')
-                                ->withInput()
-                                ->withErrors($validator->errors());
+                    return redirect('/')->withInput()->withErrors($validator->errors());
                 }
 
                 $searchtype = ($request->rbtn_searchtype?$request->rbtn_searchtype:"");
@@ -664,6 +665,7 @@ class PagesController extends BaseController
                 $departureDate = ($request->departure_date?$request->departure_date:""); // 2017-10-10
                 $returnDate = ($request->return_date?$request->return_date:""); // 2017-10-15
                 $multiCity = [];
+                
                 if ($request->has('multicity') && is_array($request->multicity)) {
                     foreach ($request->multicity as $mc) {
                         if (isset($mc['origin']) && trim($mc['origin']) != ""
@@ -679,6 +681,7 @@ class PagesController extends BaseController
                 /*$multiCity = [0=>['origin'=>"LHR",'destination'=>"CDG",'departureDate'=>"2017-10-22"],
                             1=>['origin'=>"CDG",'destination'=>"LIS",'departureDate'=>"2017-10-25"],
                             2=>['origin'=>"LIS",'destination'=>"MAN",'departureDate'=>"2017-10-28"]];*/
+                
                 $passengers = [
                     'adult' => ($request->adults?$request->adults:1),
                     'child'=>($request->child?$request->child:0),
@@ -695,6 +698,7 @@ class PagesController extends BaseController
                 $poscountrycode = "GB";
 
                 $o = new Sabrecall();
+
                 $response = $o->bargainMaxFlightSearch(
                     $originPort,
                     $destinationPort,
@@ -714,9 +718,12 @@ class PagesController extends BaseController
 
                 $params = (isset($response['params'])?$response['params']:[]);  // search params
                 $summary = (isset($response['summaryValues'])?$response['summaryValues']:[]); // summary of results. Data to left panel
+                
                 unset($response['params']);
                 unset($response['summaryValues']);
+
                 //Storage::disk('upload')->put('bfm-response-2.json', json_encode($response));
+
                 return view('pages.flightresults', [
                     'name' => "Flight Results",
                     'results' => $response,
@@ -725,6 +732,7 @@ class PagesController extends BaseController
                     'rbtn_searchtype' => $searchtype,
                 ]);
             }
+
             return view('pages.flightresults', [
                     'name' => "Flight Results",
                     'results' => $response,
@@ -732,9 +740,7 @@ class PagesController extends BaseController
                     'summary' => $summary,
                     'rbtn_searchtype' => $searchtype]);
         } catch (\Exception $ex) {
-            return redirect('/')
-                            ->withErrors('Sorry! Something went wrong!')
-                            ->withInput();
+            return redirect('/')->withErrors('Sorry! Something went wrong!')->withInput();
         }
     }
 

@@ -90,6 +90,8 @@
 
     </head>
     <body>
+      
+      {{-- header customer support --}}
       <div class="container-full redgrad">
         <div class="container header_top">
             <div class="col-md-8">
@@ -103,7 +105,9 @@
             </div>
         </div>
       </div>
-        <div class="container-full bg_blue_line">
+        
+      {{-- main navigation bar --}}
+      <div class="container-full bg_blue_line">
             <div class="navbar-wrapper">
                 <div class="container">
                     <nav class="navbar navbar-inverse navbar-default navbar-static">
@@ -178,7 +182,7 @@
                                                 <li><a href="{{ url('hotels/rivieramayamexico') }}">Riviera Maya</a></li>
                                             </ul>
                                         </li>
-                                        <!--<li class="col-sm-2">
+                                        <li class="col-sm-2">
                                             <ul>
                                                 <li class="dropdown-header">USA</li>
                                                 <li><a href="{{ url('hotels/lasvegas') }}">Las Vegas</a></li>

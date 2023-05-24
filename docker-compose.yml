@@ -24,7 +24,7 @@ services:
       - ./mysql:/var/lib/mysql
     restart: unless-stopped 
     environment:
-      MYSQL_DATABASE: homestead
+      MYSQL_DATABASE: skybourne
       MYSQL_USER: user
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
